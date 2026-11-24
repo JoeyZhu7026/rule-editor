@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>规则图形化编辑器</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="page-head">
+  <h1>🧩 规则图形化编辑器</h1>
+  <p class="sub">上传或新建规则库 JSON → 图形化编辑条件树与分级 → 下载。<b>纯前端</b>，文件不上传任何服务器。</p>
+</header>
+
+<section class="toolbar" aria-label="文件操作">
+  <div class="tool-group">
+    <label class="btn btn-primary" for="import-file">📥 导入规则库</label>
+    <button class="btn" id="btn-sample" type="button">🧪 载入示例</button>
+    <button class="btn" id="btn-new" type="button">✨ 新建规则库</button>
+  </div>
+  <div class="tool-group">
+    <label class="field-inline" for="download-name">
+      <span>下载文件名</span>
+      <input id="download-name" type="text" value="rules.json" spellcheck="false">
+    </label>
+    <button class="btn btn-primary" id="btn-download" type="button">💾 校验并下载规则库</button>
+  </div>
+</section>
+
+<section class="toolbar toolbar-sub" aria-label="编辑操作">
+  <button class="btn btn-sm" id="btn-add-type" type="button">＋ 规则类型</button>
+  <button class="btn btn-sm" id="btn-expand-all" type="button">全部展开</button>
+  <button class="btn btn-sm" id="btn-collapse-all" type="button">全部折叠</button>
+  <span class="spacer"></span>
+  <span class="hint">Ctrl/⌘ + S = 校验并下载</span>
+</section>
+
+<input id="import-file" type="file" accept=".json,application/json" hidden>
+
+<datalist id="dl-types">
+  <option value="screening"></option>
+  <option value="treatment"></option>
+  <option value="followup"></option>
+  <option value="prevention"></option>
+</datalist>
+<datalist id="dl-evidence">
+  <option value="high"></option>
+  <option value="moderate"></option>
+  <option value="low"></option>
+  <option value="very low"></option>
+</datalist>
+<datalist id="dl-reco">
+  <option value="strong for"></option>
+  <option value="conditional for"></option>
+  <option value="conditional against"></option>
+  <option value="strong against"></option>
+</datalist>
+
+<p class="status" id="status" aria-live="polite"></p>
+<div id="messages" aria-live="polite"></div>
+
+<main id="editor" class="editor"></main>
+
+<footer class="page-foot">
+  <span>条件树语义与 EBM-Clinic 的 <code>rules.json</code> 一致：<code>$and</code> / <code>$or</code> 嵌套逻辑框 + <code>field / operator / value</code> 条件条。</span>
+</footer>
+
+<script src="assets/rule-editor.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

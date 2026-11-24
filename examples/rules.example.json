@@ -1,0 +1,65 @@
+[
+  {
+    "rule_id": "rule-001",
+    "rule_type": "screening",
+    "rule_conditions": {
+      "$and": [
+        { "field": "age", "operator": ">=", "value": 18 },
+        { "field": "risk_score", "operator": ">=", "value": 0.7 },
+        {
+          "$or": [
+            { "field": "symptom", "operator": "=", "value": "cough" },
+            { "field": "fever", "operator": "=", "value": "yes" }
+          ]
+        }
+      ]
+    },
+    "rule_prompt": "建议完成初筛问卷并进入门诊评估",
+    "grading": {
+      "evidence_level": "moderate",
+      "recommendation_level": "conditional for",
+      "uncertainty_level": "low",
+      "uncertainty_reason": "问卷完成依赖患者配合"
+    },
+    "uncertainty": { "level": "low", "reason": "问卷完成依赖患者配合" },
+    "source_reference": "示例指南 §2.1"
+  },
+  {
+    "rule_id": "rule-002",
+    "rule_type": "screening",
+    "rule_conditions": { "field": "prior_diagnosis", "operator": "!=", "value": "none" },
+    "rule_prompt": "既有诊断者需复核分诊记录",
+    "grading": {
+      "evidence_level": "",
+      "recommendation_level": "",
+      "uncertainty_level": "none",
+      "uncertainty_reason": ""
+    },
+    "uncertainty": null,
+    "source_reference": ""
+  },
+  {
+    "rule_id": "rule-101",
+    "rule_type": "followup",
+    "rule_conditions": {
+      "$and": [
+        { "field": "first_screen_result", "operator": "=", "value": "abnormal" },
+        {
+          "$and": [
+            { "field": "interval_weeks", "operator": "<=", "value": 12 },
+            { "field": "interval_weeks", "operator": ">", "value": 0 }
+          ]
+        }
+      ]
+    },
+    "rule_prompt": "12 周内安排复查",
+    "grading": {
+      "evidence_level": "low",
+      "recommendation_level": "conditional for",
+      "uncertainty_level": "moderate",
+      "uncertainty_reason": "缺少本地队列数据"
+    },
+    "uncertainty": { "level": "moderate", "reason": "缺少本地队列数据" },
+    "source_reference": "示例指南 §4.3"
+  }
+]
